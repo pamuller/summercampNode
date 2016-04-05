@@ -1,0 +1,142 @@
+<div class="col-md-12" ng-controller="ChurchCtrl as churches">
+    
+<div class="panel panel-default" ng-show="churches.church">
+    
+<form role="form" name="churches.formChurch"  ng-submit="churches.isCreation? churches.add():churches.updateChurch()" novalidate class="simple-form">
+ <div class="panel panel-default" >
+   <div class="panel-heading">Church Info</div>
+     <div class="panel-body">
+         <div class="form-group has-feedback" ng-class="{'has-error':churches.formChurch.churchname.$invalid}">
+                     <label>Name</label>
+                     <input type="text" name="churchname" class="form-control" ng-model="churches.church.churchname" required=""/>
+          <span ng-messages="churches.formChurch.churchname.$error" ng-if="churches.formChurch.churchname.$touched" class="text-danger">
+                    <p ng-message="required">Church name is required.</p>
+                   </span>
+         </div>
+        <div class="form-group has-feedback" ng-class="{'has-error':churches.formChurch.churchprovince.$invalid}">
+                 <label>Province</label>
+                 <select class="form-control"  name="churchprovince" ng-model="churches.church.province"required=""
+                    ng-options="item.provinceName for item in churches.provinces track by item['@rid']"     
+                         >
+                  <!--  <option ng-repeat="option in churches.provinces" value="{{option['@rid']}}" option.provinceName}}</option>
+                    <option value="Eastern Cape">Eastern Cape</option>
+                    <option value="Free State">Free State</option>
+                     <option value="Gauteng">Gauteng</option>
+                     <option value="KwaZulu-Natal">KwaZulu-Natal</option>
+                     <option value="Limpopo">Limpopo</option>
+                     <option value="Mpumalanga">Mpumalanga</option>
+                     <option value="North West">North West</option>
+                     <option value="Northern Cape">Northern Cape</option>
+                     <option value="Western Cape">Western Cape</option>-->
+                </select>
+           <span ng-messages="churches.formChurch.churchprovince.$error" ng-if="churches.formChurch.churchprovince.$touched" class="text-danger">
+                    <p ng-message="required">Province is required.</p>
+                   </span>
+        </div> 
+        
+          <div class="form-group">
+             <label>Address</label>
+             <textarea cols="2" rows="3" class="form-control" ng-model="churches.church.address"></textarea>
+          </div>
+          <div class="form-group">
+             <label>Contact Number</label>
+              <input type="text" name="churchcontactno" class="form-control" ng-model="churches.church.churchcontactno" />
+          </div>
+     </div>
+     
+</div>     
+           
+   
+    <div class="panel panel-default" >
+          <div class="panel-heading">Youth Leader</div>
+         <div class="panel-body">
+                   <div class="form-group has-feedback" ng-class="{'has-error':churches.formChurch.youthleaderName.$invalid}">    
+                      <label>Name</label>
+                        <input type="text" name="youthleaderName" class="form-control" ng-model="churches.church.youthleaderName" required="" />
+                         <span ng-messages="churches.formChurch.youthleaderName.$error" ng-if="churches.formChurch.youthleaderName.$touched" class="text-danger">
+                    <p ng-message="required">Youth leader name is required.</p>
+                   </span>
+                   </div>
+                     <div class="form-group has-feedback" ng-class="{'has-error':churches.formChurch.youthleaderSurname.$invalid}">  
+                        <label>Surname</label>
+                        <input type="text" name="youthleaderSurname" class="form-control" ng-model="churches.church.youthleaderSurname" required="" />
+                           <span ng-messages="churches.formChurch.youthleaderSurname.$error" ng-if="churches.formChurch.youthleaderSurname.$touched" class="text-danger">
+                    <p ng-message="required">Youth leader surname is required.</p>
+                   </span>
+                     </div>     
+                <div class="form-group has-feedback" ng-class="{'has-error':churches.formChurch.youthleadercell.$invalid}">  
+                   <label>Cell No</label>
+                   <input type="number" name="youthleadercell" class="form-control" ng-model="churches.church.youthleadercell" required="" />
+                          <span ng-messages="churches.formChurch.youthleadercell.$error" ng-if="churches.formChurch.youthleadercell.$touched" class="text-danger">
+                    <p ng-message="required">Youth leader contact number required.</p>
+                   </span>
+                </div>
+              <div class="form-group has-feedback" ng-class="{'has-error':churches.formChurch.youthleaderemail.$invalid}">  
+                   <label>Email </label>
+                   <input type="email" name="youthleaderemail" class="form-control" ng-model="churches.church.youthleaderemail" required="" />
+                          <span ng-messages="churches.formChurch.youthleaderemail.$error" ng-if="churches.formChurch.youthleaderemail.$touched" class="text-danger">
+                    <p ng-message="required">Youth leader email address required.</p>
+                    <p ng-message="email">a Valid email address required.</p>
+                   </span>
+                </div>
+             </div>
+      </div>
+
+
+      <button type="submit" class="btn btn-default">{{submitLabel}}</button>
+      <button  class="btn btn-default" ng-click="churches.close()">Close</button>
+ </form>
+</div>
+   
+    
+    <div class="panel panel-default" ng-show="! churches.church">
+  
+   <div class="panel-body">
+      <div  class="panel panel-default">
+         <table datatable="ng" dt-options="churches.dtOptions"  dt-column-defs="churches.dtColumnDefs"   class="table table-striped table-condensed table-hover">
+         
+             
+             
+         
+              <thead>   
+                 <tr>
+                     
+                     <th>Church Name</th>
+                     <th>Contact details</th>
+                     <th>Province</th>
+                     <th align="center">
+                           <button type="button" class="btn btn-labeled btn-success" ng-click="churches.showCompanyView()">
+                              <span class="btn-label">
+                                 <em class="fa fa-plus"></em>
+                              </span>Add</button>
+                        </th>
+                  </tr>
+             </thead>
+            <tbody >
+            <tr ng-repeat="church in churches.churchlist" ng-click="churches.selectChurch(church)">
+                     <td >{{ church.churchname }}</td>
+                     <td>{{ church.churchcontactno }}</td>
+                     <td>{{ church.province.provinceName}}</td>
+                     
+                     
+                     <td>
+                        <button type="button" ng-click="churches.modifyChurch($index)"  class="btn btn-sm btn-warning">
+                           <em class="fa fa-edit"></em>
+                        </button>
+                       
+                        <button type="button" ng-click="churches.removeChurch($index)"  class="btn btn-sm btn-danger">
+                           <em class="fa fa-trash-o"></em>
+                        </button>
+                     </td>
+                  </tr>
+             </tbody>
+         </table>
+      </div>
+   </div>
+</div>
+    
+    
+    
+    
+    
+</div>
