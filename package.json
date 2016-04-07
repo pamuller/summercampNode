@@ -12,6 +12,7 @@
     "express": "*",
     "morgan": "*",
     "serve-favicon": "*",
-    "cors":"*"
+    "cors":"*",
+    "orientjs":"*"
   }
 }
