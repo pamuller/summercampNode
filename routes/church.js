@@ -18,6 +18,11 @@ router.get('/find/:id', function(req, res, next) {
 	console.log('active church', church);
 });
 
+router.get('/findSingle/:id', function(req, res, next) {
+	var churches = church.findSingle(res,req);
+	console.log('active church', church);
+});
+
 router.get('/findByProvince/:id', function(req, res, next) {
 	var churches = church.find(res,req);
 	console.log('active church', church);

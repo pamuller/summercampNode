@@ -5,8 +5,9 @@ define([
     'require',
     'angular',
     'app',
-    'routes'
-], function (require, ng,app, routes) {
+    'routes',
+    'jquery'
+], function (require, ng,app, routes,$) {
     'use strict';
 
     require(['domReady!'], function (document) {

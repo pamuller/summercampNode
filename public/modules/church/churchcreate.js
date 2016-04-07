@@ -4,25 +4,25 @@ define(['angular','ngMessages'],
     angular.module('myApp.churchcreate', [])
     .controller('ChurchCtrl', ChurchcreateCtrl)
     .factory('churchList', churchList);
-    
-    
+
+
   //  ChurchcreateCtrl.$inject = ['$scope','$http'];
-    
-    
+
+
      function churchList($http,vm)
-    {      
+    {
         var churchlist = {};
-        
+
         churchList.getChurchList=function(id)
         {
             return $http.get('/church//Churchlist/'+id);
-        } 
-        
-        
+        }
+
+
         return churchlist;
     }
-             
-                
+
+
     function ChurchcreateCtrl($scope,$http,DTOptionsBuilder,DTColumnDefBuilder) {
         var vm=this;
         vm.provinces = [];
@@ -31,43 +31,43 @@ define(['angular','ngMessages'],
         vm.submitLabel=""
         vm.isCreation = false;
         vm.editIndex = 0;
-        
-        
+
+
         vm.dtOptions = DTOptionsBuilder.newOptions()
         .withPaginationType('full_numbers')
         .withDisplayLength(10)
         .withOption('responsive', true);
-       
+
          vm.dtColumnDefs = [
         DTColumnDefBuilder.newColumnDef(0),
         DTColumnDefBuilder.newColumnDef(1),
         DTColumnDefBuilder.newColumnDef(2),
         DTColumnDefBuilder.newColumnDef(3).notSortable()
     ];
-        
-        
+
+
        /* vm.dtColumnDefs = [
               DTColumnDefBuilder.newColumnDef(0),
               DTColumnDefBuilder.newColumnDef(1),
               DTColumnDefBuilder.newColumnDef(2),
               DTColumnDefBuilder.newColumnDef(3).notSortable()
           ];*/
-         
+
          /*$http.get('http://localhost:3000/province/findall').success( function(provinceList) {
         	    vm.provinces  = provinceList;
            });*/
-        
+
        getProvince($http,vm);
        getChurchlist($http,vm);
-    
+
       // vm.church.province = provinceCtrl.findall();
-        
-        
-        console.log("ChurchcreateCtrl");  
+
+
+        console.log("ChurchcreateCtrl");
        // vm.churches=[];
         this.add = function()
         {
-            console.log("add"); 
+            console.log("add");
             console.log(this.church);
             var obj =angular.toJson(this.church);
              $http.post('/church/add',obj).success( function(church) {
@@ -78,10 +78,10 @@ define(['angular','ngMessages'],
                      {
                  console.log(data +" " +status);
              });
-            
-        } 
-        
-        
+
+        }
+
+
          this.showCompanyView =function()
         {
            vm.church ={};
@@ -92,18 +92,18 @@ define(['angular','ngMessages'],
         {
            vm.church =null;
         }
-         
+
            this.modifyChurch =function(index)
         {
              //vm.church =vm.churchlist[index];
-               
+
                var churchid=vm.churchlist[index]['@rid'].substring(1,vm.churchlist[index]['@rid'].length);
-               $http.get('/church/find/'+churchid).success( function(church) {
+               $http.get('/church/findSingle/'+churchid).success( function(church) {
         	   vm.church  = church[0];
                  $scope.submitLabel="Edit";
                  vm.isCreation=false;
-                   vm.editIndex=index;               
-             });                           
+                   vm.editIndex=index;
+             });
         }
 
            this.updateChurch =function()
@@ -112,15 +112,15 @@ define(['angular','ngMessages'],
               var obj =angular.toJson(vm.church);
              $http.put('/church/add/',obj).success( function(church) {
         	   console.log("Church updated");
-                 
+
                   vm.churchlist.splice(vm.editIndex, 1);
                   vm.churchlist.push(vm.church);
                   vm.church  = null;
-             });        
+             });
         }
-           
+
           this.removeChurch =function(index)
-        {   
+        {
                var churchid=vm.churchlist[index]['@rid'].substring(1);
                    $http.delete('/church/add/'+churchid)
 	                    .then(function(response) {
@@ -129,36 +129,36 @@ define(['angular','ngMessages'],
 	                      // assumes if ok, response is an object with some data, if not, a string with error
 	                      // customize according to your api
 	                    });
-        }  
-          
-          
-         
-    }            
-    
-    
+        }
+
+
+
+    }
+
+
       function getProvince($http,vm) {
-        
-            console.log("get Province"); 
+
+            console.log("get Province");
              $http.get('/province/findAll').success( function(provinceList) {
-        	   vm.provinces= provinceList;  
+        	   vm.provinces= provinceList;
        });
-         
+
       }
-          
+
      function getChurchlist($http,vm) {
-        
-            console.log("get Churches"); 
+
+            console.log("get Churches");
              $http.get('/church/findAll').success( function(churclist) {
-        	   vm.churchlist= churclist;  
-       });          
-            
+        	   vm.churchlist= churclist;
+       });
+
      }
-    
-    
-   
-        
-     
-    
+
+
+
+
+
+
 
 });
 
