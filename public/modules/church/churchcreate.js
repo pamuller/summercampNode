@@ -15,7 +15,7 @@ define(['angular','ngMessages'],
         
         churchList.getChurchList=function(id)
         {
-            return $http.get('http://localhost:3000/church//Churchlist/'+id);
+            return $http.get('/church//Churchlist/'+id);
         } 
         
         
@@ -70,7 +70,7 @@ define(['angular','ngMessages'],
             console.log("add"); 
             console.log(this.church);
             var obj =angular.toJson(this.church);
-             $http.post('http://localhost:3000/church/add',obj).success( function(church) {
+             $http.post('/church/add',obj).success( function(church) {
         	   vm.churchlist.push(church[0]);
                vm.church = null;
         	 // console.log("Added:" +church);
@@ -98,7 +98,7 @@ define(['angular','ngMessages'],
              //vm.church =vm.churchlist[index];
                
                var churchid=vm.churchlist[index]['@rid'].substring(1,vm.churchlist[index]['@rid'].length);
-               $http.get('http://localhost:3000/church/find/'+churchid).success( function(church) {
+               $http.get('/church/find/'+churchid).success( function(church) {
         	   vm.church  = church[0];
                  $scope.submitLabel="Edit";
                  vm.isCreation=false;
@@ -110,7 +110,7 @@ define(['angular','ngMessages'],
         {
              //vm.church =vm.churchlist[index];
               var obj =angular.toJson(vm.church);
-             $http.put('http://localhost:3000/church/add/',obj).success( function(church) {
+             $http.put('/church/add/',obj).success( function(church) {
         	   console.log("Church updated");
                  
                   vm.churchlist.splice(vm.editIndex, 1);
@@ -122,7 +122,7 @@ define(['angular','ngMessages'],
           this.removeChurch =function(index)
         {   
                var churchid=vm.churchlist[index]['@rid'].substring(1);
-                   $http.delete('http://localhost:3000/church/add/'+churchid)
+                   $http.delete('/church/add/'+churchid)
 	                    .then(function(response) {
 	                  	vm.churchlist.splice(index, 1);
 	                    	vm.church= null;
@@ -139,7 +139,7 @@ define(['angular','ngMessages'],
       function getProvince($http,vm) {
         
             console.log("get Province"); 
-             $http.get('http://localhost:3000/province/findAll').success( function(provinceList) {
+             $http.get('/province/findAll').success( function(provinceList) {
         	   vm.provinces= provinceList;  
        });
          
@@ -148,7 +148,7 @@ define(['angular','ngMessages'],
      function getChurchlist($http,vm) {
         
             console.log("get Churches"); 
-             $http.get('http://localhost:3000/church/findAll').success( function(churclist) {
+             $http.get('/church/findAll').success( function(churclist) {
         	   vm.churchlist= churclist;  
        });          
             
