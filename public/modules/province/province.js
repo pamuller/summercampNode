@@ -12,7 +12,7 @@ define(['angular'],
       var provincelist = {};
         
       provincelist.getPovinceList = function () {
-        return $http.get('http://localhost:3000/province/findall');
+        return $http.get('/province/findall');
       }; 
       return provincelist;   
 
@@ -31,7 +31,7 @@ define(['angular'],
         {
             console.log("add");
             console.log(this.church);
-             $http.get('http://localhost:3000/province/findall').success( function(provinceList) {
+             $http.get('/province/findall').success( function(provinceList) {
         	   vm.provinces = provinceList;
 
            });

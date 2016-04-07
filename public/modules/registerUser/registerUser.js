@@ -48,7 +48,7 @@ define(['angular','province'],
         {
             console.log("add");
             console.log(this.church);
-             $http.post('http://localhost:3000/registeruser/add',this).success( function(regiserUser) {
+             $http.post('/registeruser/add',this).success( function(regiserUser) {
                vm.regiserUser = regiserUser;
 
            });
@@ -142,7 +142,7 @@ define(['angular','province'],
                console.log("get Churches"); 
              var provinceSelected = province;
              var provinceid = provinceSelected['@rid'].substring(1,provinceSelected['@rid'].length)
-              $http.get('http://localhost:3000/church/findByProvince/'+provinceid).success( function(churchlist) {
+              $http.get('/church/findByProvince/'+provinceid).success( function(churchlist) {
                 vm.churchlist= churchlist;  
               });             
         }
@@ -192,7 +192,7 @@ define(['angular','province'],
             // var fd = new FormData();
            // fd.append('recfile', vm.myFile);
            // vm.fileList.push(vm.myFile.name)
-            $http.get('http://localhost:3000/registeruser/getDoc')
+            $http.get('/registeruser/getDoc')
             .success(function(provinceList){
                 console.log('getfile')
                 // window.open(provinceList[0]);
@@ -212,7 +212,7 @@ define(['angular','province'],
     function getProvince($http,vm) {
         
             console.log("get Province"); 
-             $http.get('http://localhost:3000/province/findAll').success( function(provinceList) {
+             $http.get('/province/findAll').success( function(provinceList) {
         	   vm.provinces= provinceList;  
        });
          
