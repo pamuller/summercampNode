@@ -17,6 +17,17 @@ router.get('/findAll', function(req, res, next) {
 });
 
 
+
+
+router.get('/findByChurch/:id', function(req, res, next) {
+
+
+	let registerlist = userRegisterModel.findByChurch(res,req);
+	console.log('find by church', registerlist);
+
+});
+
+
 /* Add province. */
 router.post('/add', function(req, res, next) {
 

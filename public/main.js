@@ -13,7 +13,7 @@ require.config({
         'domReady': 'bower_components/requirejs-domready/domReady',
         'ngMessages': 'bower_components/angular-messages/angular-messages',
         'ngMaterial': 'bower_components/angular-material/angular-material',
-        'province':'modules/province/province',
+        'province':'admin/modules/province/province',
         'datatables':'bower_components/datatables/media/js/jquery.dataTables',
         'angular-datatables':'bower_components/angular-datatables/dist/angular-datatables',
 

@@ -134,6 +134,10 @@ function Church() {
 			  res.send(church);
 		  });
 	  };
+    
+    
+    
+    
 
 	    this.findSingle = function(res,req)
 	  	  {
@@ -145,6 +149,9 @@ function Church() {
 	  		  });
 	  };
 
+    
+    
+    
 
 	  this.findall = function(res,req)
 	  {

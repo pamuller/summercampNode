@@ -2,7 +2,7 @@ define([
     'angular',
     'jquery',
     'uiRouter',
-    'modules/church/churchcreate',
+    'admin/modules/church/churchcreate',
     'modules/registerUser/registerUser',
     'province',
     'ngMessages',

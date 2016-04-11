@@ -24,7 +24,7 @@ function UserRegister() {
 					// res.send(req.body.person);
 					 console.log('created addressEdge');
 					 //create edge to summercamp2016
-					 db.create('EDGE','camp2016').to('#33:1').from(userid).one()
+					 db.create('EDGE','camp2016').to('#34:0').from(userid).one()
 					 .then(function(edge){
 						// res.send(req.body.person);
 						 console.log('created addressEdge');
@@ -106,23 +106,31 @@ function UserRegister() {
 	  
 	  this.parent1 = function(person,req,res,vm)
 	  {
-		  var parent1 = req.req.body.parent1;
-		  var userid = person['@rid'];
-		  db.insert().into('person').set(parent1).one()
-			.then(function (parent1) {
-				console.log('created', parent1);
-				//res.send(person);
-				
-				db.create('EDGE','parent').set({relation:parent1.relation}).to(parent1['@rid'].toString()).from(userid).one()
-				 .then(function(edge){
-					// res.send(req.body.person);
-					 console.log('created addressEdge');
-					 vm.parent2(person,req,res,vm);
-				});
-				
-				
-			  
-			});
+		  var parentArray = req.req.body.perantGardians;
+		  var i = 0 ;
+		  for (i =0 ; i < parentArray.length ; i++)
+			  {
+			  var parent1 = parentArray[i];
+				  var userid = person['@rid'];
+				  db.insert().into('person').set(parent1).one()
+					.then(function (parent1) {
+						console.log('created', parent1);
+						//res.send(person);
+						
+						db.create('EDGE','parent').set({relation:parent1.relation}).to(parent1['@rid'].toString()).from(userid).one()
+						 .then(function(edge){
+							// res.send(req.body.person);
+							 console.log('created parentEdge');
+							
+						});
+						
+						
+					  
+					});    
+				  
+			  }
+		  vm.tshirt(person,req,res,vm); 
+		 // vm.emergancy1(person,req,res,vm);
 	  }
 	  
 	  this.parent2 = function(person,req,res,vm)
@@ -322,6 +330,18 @@ function UserRegister() {
 			  res.send(persons);
 		  });
 	  };
+    
+    
+    
+      this.findByChurch = function(res)
+	  {
+		  db.select().from('Person').all()
+			.then(function (persons) {
+			  console.log('active users', persons);
+			  res.send(persons);
+		  });
+	  };
+    
 
 }
 
