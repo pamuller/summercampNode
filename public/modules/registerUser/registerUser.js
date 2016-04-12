@@ -79,8 +79,8 @@ define(['angular','province'],
         
         this.addPerent = function (){
             console.log("addParent entered");
-            var perantGardian = {'name':vm.parent.name, 
-                                 'surname': vm.parent.surname,
+            var perantGardian = {'firstname':vm.parent.firstname, 
+                                 'lastname': vm.parent.lastname,
                                  'relation':vm.parent.relation,
                                  'codtactdetails':vm.parent.contactdetails
                                 };

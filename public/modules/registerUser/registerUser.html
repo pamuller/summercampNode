@@ -200,14 +200,14 @@
                         <div class="panle-body form-group">
                         <div class="form-group has-feedback">
                             <label>Name</label>
-                            <input type="text" name="parentname1" class="form-control" ng-model="register.parent.name" required="" />
+                            <input type="text" name="parentname1" class="form-control" ng-model="register.parent.firstname" required="" />
                             <span ng-messages="register.formRegisterUser.parentname1.$error" ng-if="register.formRegisterUser.parentname1.$touched" class="text-danger">
                                 <p ng-message="required">Parent/Gaurdian name is required.</p>
                             </span>
                         </div>
                         <div class="form-group has-feedback">
                             <label>Surname</label>
-                            <input type="text" name="parentsurname" class="form-control" ng-model="register.parent.surname"  required=""/>
+                            <input type="text" name="parentsurname" class="form-control" ng-model="register.parent.lastname"  required=""/>
                             <span ng-messages="register.formRegisterUser.parentsurname.$error" ng-if="register.formRegisterUser.parentsurname.$touched" class="text-danger">
                                 <p ng-message="required">Parent/Gaurdian surname is required.</p>
                             </span>
@@ -293,9 +293,9 @@
                                 </thead>
                                 <tbody >
                                     <tr ng-repeat="perantGardian in register.perantGardians" >
-                                        <td>{{perantGardian.name }}</td>
-                                        <td>{{perantGardian.surname }}</td>
-                                        <td>{{perantGardian.relation }}</td>
+                                        <td>{{perantGardian.firstname}}</td>
+                                        <td>{{perantGardian.lastname}}</td>
+                                        <td>{{perantGardian.relation}}</td>
                                         <td ng-repeat="contactdetail in perantGardian.codtactdetails">
                                             {{contactdetail.contactno}}
                                         </td>

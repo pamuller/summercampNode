@@ -335,7 +335,7 @@ function UserRegister() {
     
       this.findByChurch = function(res)
 	  {
-		  db.select().from('Person').all()
+		  db.select().from('Person').where('relation is null').all()
 			.then(function (persons) {
 			  console.log('active users', persons);
 			  res.send(persons);
