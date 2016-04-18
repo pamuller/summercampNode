@@ -1,5 +1,5 @@
 'use strict';
-define(['angular','ngMessages'],
+define(['angular','ngMessages', 'modules/contacts/contacts'],
        function (angular){
     angular.module('myApp.churchcreate', [])
     .controller('ChurchCtrl', ChurchcreateCtrl)
@@ -27,6 +27,9 @@ define(['angular','ngMessages'],
         var vm=this;
         vm.provinces = [];
         vm.churchlist = [];
+        vm.youthleader={};
+        //vm.church.churchcontactno=[];
+        vm.youthleader.contactno=[];
         vm.church = null;
         vm.submitLabel=""
         vm.isCreation = false;
@@ -69,9 +72,9 @@ define(['angular','ngMessages'],
         {
             console.log("add");
             console.log(this.church);
-            var obj =angular.toJson(this.church);
+            var obj =angular.toJson(this);
              $http.post('/church/add',obj).success( function(church) {
-        	   vm.churchlist.push(church[0]);
+        	   vm.churchlist.push(church);
                vm.church = null;
         	 // console.log("Added:" +church);
            }).error(function(data, status)
@@ -100,7 +103,7 @@ define(['angular','ngMessages'],
                var churchid=vm.churchlist[index]['@rid'].substring(1,vm.churchlist[index]['@rid'].length);
                $http.get('/church/findSingle/'+churchid).success( function(church) {
         	   vm.church  = church[0];
-                 $scope.submitLabel="Edit";
+                 $scope.submitLabel="Save";
                  vm.isCreation=false;
                    vm.editIndex=index;
              });
@@ -130,6 +133,45 @@ define(['angular','ngMessages'],
 	                      // customize according to your api
 	                    });
         }
+          
+          
+         this.addContactno = function()
+        {
+            console.log("addContactno");
+           // console.log(vm.parent.contacttype);
+            //console.log(vm.parent.contactnum);
+
+             var contactnum = vm.contacts.church.contactnum;
+             var contacttype =  vm.contacts.church.contacttype
+             var contactdetail = {'contacttype':contacttype,'contactno':contactnum};
+             if (vm.church.churchcontactno == null)
+                 {
+                     vm.church.churchcontactno = [];
+                 }
+             vm.church.churchcontactno.push(contactdetail);
+             
+             vm.contacts.church.contactnum = null;
+             vm.contacts.church.contacttype = "";
+             
+
+        }
+         
+          this.addContactnoLeader = function()
+        {
+            console.log("addContactnoLeader");
+           // console.log(vm.parent.contacttype);
+            //console.log(vm.parent.contactnum);
+             var contactnum = vm.contacts.leader.contactnum;
+             var contacttype =  vm.contacts.leader.contacttype
+             
+             var contactdetail = {'contacttype':contacttype,'contactno':contactnum};
+             vm.youthleader.contactno.push(contactdetail);
+              
+             vm.contacts.leader.contactnum = null;
+             vm.contacts.leader.contacttype = "";  
+
+        }
+
 
 
 

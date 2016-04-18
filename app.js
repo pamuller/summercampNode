@@ -56,10 +56,11 @@ app.use(require("./routes"));
 if (app.get('env') === 'development') {
 app.use(function(err, req, res, next) {
  res.status(err.status || 500);
- res.render('error', {
+ console.log(err.message);
+ /*res.render('error', {
    message: err.message,
    error: err
- });
+ });*/
 });
 }
 
@@ -67,10 +68,11 @@ app.use(function(err, req, res, next) {
 //no stacktraces leaked to user
 app.use(function(err, req, res, next) {
 res.status(err.status || 500);
-res.render('error', {
+console.log(err.message);
+/*res.render('error', {
  message: err.message,
  error: {}
-});
+});*/
 });
 
 console.log("started server");
